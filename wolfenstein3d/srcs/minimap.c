@@ -12,8 +12,8 @@ t_camera	*camera_init(void)
 	cam->speedangle = 10.0f;
 	cam->speedmove = 20.0f;
 	cam->fov = 60.0;
-	cam->raylength = 300;
-	cam->position.x = 128; 
+	cam->raylength = WIDTH;
+	cam->position.x = 128;
 	cam->position.y = 128;
 	i = -1;
 	return (cam);
@@ -21,19 +21,22 @@ t_camera	*camera_init(void)
 void	projection2D(t_wolf3d *w)
 {
 	int 		i;
+	float		angle;
 
 	i = -1;
-	while (++i < WIDTH)
+	while (++i < WIDTH_MM)
 	{
 		w->cam->rays[i].startPoint = w->cam->position;
 		w->cam->rays[i].startPoint.color = 0xff0000;
 		w->cam->rays[i].endPoint.color = 0xff0000;
+		angle = (w->cam->angle + w->cam->fov / 2) - (i * (w->cam->fov / WIDTH_MM));
+		//printf("angle_minimap = %f\n", angle);
 		if (intersection(w, i))
 			w->cam->rays[i].endPoint = w->cam->intersection;
 		else
 		{
-			w->cam->rays[i].endPoint.x = w->cam->position.x + w->cam->raylength * Cos((w->cam->angle + w->cam->fov / 2) - (i * (w->cam->fov / WIDTH)));
-			w->cam->rays[i].endPoint.y = w->cam->position.y + w->cam->raylength * Sin((w->cam->angle + w->cam->fov / 2) - (i * (w->cam->fov / WIDTH)));
+			w->cam->rays[i].endPoint.x = w->cam->position.x + w->cam->raylength * tCos((w->cam->angle + w->cam->fov / 2) - (i * (w->cam->fov / WIDTH_MM)));
+			w->cam->rays[i].endPoint.y = w->cam->position.y + w->cam->raylength * tSin((w->cam->angle + w->cam->fov / 2) - (i * (w->cam->fov / WIDTH_MM)));
 		}
 	}
 }
@@ -75,15 +78,15 @@ int 	intersection(t_wolf3d *w, int iteration)
 	unsigned int 	length;
 	t_vec2f			dir;
 
-	angle = (w->cam->angle + (w->cam->fov / 2) - (iteration * w->cam->fov / WIDTH));
-	dir.x = Cos(angle);
-	dir.y = Sin(angle);
+	angle = (w->cam->angle + (w->cam->fov / 2) - (iteration * w->cam->fov / WIDTH_MM));
+	dir.x = tCos(angle);
+	dir.y = tSin(angle);
 	length = -1;
 	while (++length < w->cam->raylength)
 	{
 		mapx = (int)(w->cam->position.x + (length * dir.x));
 		mapy = (int)(w->cam->position.y + (length * dir.y));
-		if (mapy / BLOC_SIZE < w->map->h && w->map->board[mapy / BLOC_SIZE][mapx / BLOC_SIZE])
+		if ((mapy / BLOC_SIZE < w->map->h && w->map->board[mapy / BLOC_SIZE][mapx / BLOC_SIZE]) || mapy >= HEIGHT_MM)
 		{
 			w->cam->intersection.x = mapx;
 			w->cam->intersection.y = mapy;
@@ -102,7 +105,7 @@ void	draw_mmap(t_wolf3d *w)
 	i = -1;
 	projection2D(w);
 	draw_circle(w); // draw the camera;
-	while (++i < WIDTH)
+	while (++i < WIDTH_MM)
 		//printf("start.x = %d start.y = %d end.y = %d end.x = %d\n", w->cam->rays[i].startPoint.x, w->cam->rays[i].startPoint.y, w->cam->rays[i].endPoint.y, w->cam->rays[i].endPoint.x);
 		put_line(w, w->cam->rays[i].startPoint, w->cam->rays[i].endPoint);
 	i = -1;

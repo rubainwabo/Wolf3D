@@ -20,6 +20,7 @@ void		process(t_wolf3d *w)
 	//render(w);
 	//ray_cast(w);
 	draw_mmap(w);
+	projection3D(w);
 	mlx_put_image_to_window(w->mlx_ptr, w->win_ptr, w->img->ptr,
 																		0, 0);
 }
