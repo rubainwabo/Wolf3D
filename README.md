@@ -29,3 +29,6 @@ $> ...
 - You can either move the camera with the mouse like an fps or you can move it with left and right arrow
 - W to move forward, S to move backward, A to strafe left, D to strafe right
 - Press tab to show/hide menu
+## IMAGES
+![](https://github.com/rubainwabo/Wolf3D/edit/master/textures/w1)
+![](https://github.com/rubainwabo/Wolf3D/edit/master/textures/w2)
