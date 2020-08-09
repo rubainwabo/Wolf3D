@@ -1,5 +1,5 @@
 # wolf3d
-wolf3d 42 school project
+wolf3d project
 
 ## DESCRIPTION
 wolfenstein 3d renderer using raycasting
