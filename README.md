@@ -30,5 +30,5 @@ $> ...
 - W to move forward, S to move backward, A to strafe left, D to strafe right
 - Press tab to show/hide menu
 ## IMAGES
-![](https://github.com/rubainwabo/Wolf3D/tree/master/textures/w1)
-![](https://github.com/rubainwabo/Wolf3D/tree/master/textures/w2)
+![](https://github.com/rubainwabo/Wolf3D/tree/master/textures/w1.png)
+![](https://github.com/rubainwabo/Wolf3D/tree/master/textures/w2.png)
