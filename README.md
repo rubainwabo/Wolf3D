@@ -31,4 +31,4 @@ $> ...
 - Press tab to show/hide menu
 ## IMAGES
 ![](https://github.com/rubainwabo/Wolf3D/blob/master/textures/w1.png)
-![](https://github.com/rubainwabo/Wolf3D/tree/master/textures/w2.png)
+![](https://github.com/rubainwabo/Wolf3D/blob/master/textures/w2.png)
